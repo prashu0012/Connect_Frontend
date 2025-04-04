@@ -7,7 +7,7 @@ import {
   ChevronRight,
   ChevronLeft,
 } from "lucide-react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, NavLink } from "react-router-dom";
 import DropdownMenu from "./DropdownMenu1";
 
 const Navbar = () => {
@@ -42,9 +42,9 @@ const Navbar = () => {
           <button className="p-2 cursor-pointer">
             <User onClick={() => navigate("/signup")} className="h-6 w-6" />
           </button>
-          <button className="p-2">
+          <NavLink to='/cart' className="p-2">
             <ShoppingBag className="h-6 w-6" />
-          </button>
+          </NavLink>
           <button className="flex items-center gap-1 p-2">
             <span className="flex items-center">
               <img

@@ -1,14 +1,29 @@
+import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Cookies from 'js-cookie';
 
-const Login = () => {
+export default function Login() {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Login Data:", formData);
-    alert("Login Successful!");
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/login`, formData, { withCredentials: true });
+
+      // setCookie
+      const accessToken = response.headers['accessToken'];
+      const responseToken = response.headers['responseToken'];
+      console.log(accessToken, "\n", responseToken);
+      if (accessToken) Cookies.set('accessToken', accessToken, { path: '/', secure: true, sameSite: 'Strict' });
+      if (responseToken) Cookies.set('responseToken', responseToken, { path: '/', secure: true, sameSite: 'Strict' });
+      navigate("/");
+
+    } catch (error) {
+      console.log("Error ", error);
+    }
   };
 
   return (
@@ -48,4 +63,3 @@ const Login = () => {
   );
 };
 
-export default Login;

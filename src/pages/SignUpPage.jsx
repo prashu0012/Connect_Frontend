@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 // import { useUserStore } from "../stores/useUserStore";
@@ -5,17 +6,23 @@ import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
-     name: "",
-     email: "", 
-     password: "",
-     confirmpassword: ""
-    });
+    name: "",
+    email: "",
+    password: "",
+    confirmpassword: ""
+  });
 
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Signup Data:", formData);
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/signup`, formData);
+      console.log("signup\n", response);
+    } catch (err) {
+      console.log("Error", err.message);
+    }
     navigate("/login"); // Redirect to login after signup
   };
 

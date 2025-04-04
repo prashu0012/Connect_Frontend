@@ -13,7 +13,7 @@ function ProductList() {
 
   useEffect(() => {
     axiosInstance
-      .get("/products")
+      .get("/api/products") 
       .then((response) => {
         console.log("API Response:", response.data);
         setData(
