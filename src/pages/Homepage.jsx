@@ -13,7 +13,7 @@ const HomePage = () => {
     const fetchProducts = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get("/products", {
+        const response = await axios.get("/api/products", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
