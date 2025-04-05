@@ -119,11 +119,11 @@ const ProductDetail = () => {
         <div className="mb-4 space-y-2">
           <div className="flex">
             <span className="w-24 font-medium text-gray-700">Size:</span>
-            <span className="text-gray-600">{product.size}</span>
+            <span className="text-gray-600">{productDetails.size}</span>
           </div>
           <div className="flex">
             <span className="w-24 font-medium text-gray-700">SKU:</span>
-            <span className="text-gray-600">{product.sku}</span>
+            <span className="text-gray-600">{productDetails.sku}</span>
           </div>
           <div className="flex items-center">
             <span className="w-24 font-medium text-gray-700">

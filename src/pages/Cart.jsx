@@ -19,13 +19,12 @@ const Cart = () => {
             <div>Total</div>
           </div>
 
-          {cart.map((item) => (
-            <CartItem key={item.id} product={item} />
-          ))}
-
-          <Link to="/" className="text-blue-600 mt-4 inline-block">
-            Continue Shopping
-          </Link>
+          <button
+            className="bg-black text-white py-3 px-8 font-medium hover:bg-gray-800 transition-colors duration-300"
+            onClick={() => navigate('/checkout')}
+          >
+            Proceed to Checkout
+          </button>
         </div>
       )}
     </div>
