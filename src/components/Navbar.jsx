@@ -42,7 +42,7 @@ const Navbar = () => {
           <button className="p-2 cursor-pointer">
             <User onClick={() => navigate("/signup")} className="h-6 w-6" />
           </button>
-          <button className="p-2">
+          <button className="p-2" onClick={() => navigate("/cart")}>
             <ShoppingBag className="h-6 w-6" />
           </button>
           <button className="flex items-center gap-1 p-2">
