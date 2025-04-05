@@ -18,7 +18,7 @@ const HomePage = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        setProducts(response.data);
+        setProducts(response.data.products);
       } catch (error) {
         console.error("Error fetching products:", error);
       }
