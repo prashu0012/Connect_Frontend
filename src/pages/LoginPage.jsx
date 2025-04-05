@@ -17,8 +17,8 @@ export default function Login() {
       const accessToken = response.headers['accessToken'];
       const responseToken = response.headers['responseToken'];
       console.log(accessToken, "\n", responseToken);
-      if (accessToken) Cookies.set('accessToken', accessToken, { path: '/', secure: true, sameSite: 'Strict' });
-      if (responseToken) Cookies.set('responseToken', responseToken, { path: '/', secure: true, sameSite: 'Strict' });
+      if (accessToken) Cookies.set('accessToken', accessToken, { path: '/', secure: true, sameSite: 'None' });
+      if (responseToken) Cookies.set('responseToken', responseToken, { path: '/', secure: true, sameSite: 'None' });
       navigate("/");
 
     } catch (error) {
