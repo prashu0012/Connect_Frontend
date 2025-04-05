@@ -117,7 +117,7 @@ function ProductList() {
 
   useEffect(() => {
     axiosInstance
-      .get("/products")
+      .get("/api/products")
       .then((response) => {
         setData(Array.isArray(response.data.products) ? response.data.products : []);
         setLoading(false);
