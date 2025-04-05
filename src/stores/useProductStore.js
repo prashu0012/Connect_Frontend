@@ -2,10 +2,11 @@ import { create } from "zustand";
 import toast from "react-hot-toast";
 import axios from "../lib/axios";
 
+
 export const useProductStore = create((set) => ({
 	products: [],
 	loading: false,
-
+    
 	setProducts: (products) => set({ products }),
 	createProduct: async (productData) => {
 		set({ loading: true });
@@ -20,6 +21,16 @@ export const useProductStore = create((set) => ({
 			set({ loading: false });
 		}
 	},
+	fetchProductsByName: async (name) => {
+		try {
+		  const res = await axios.get(`/products/search?name=${encodeURIComponent(name)}`);
+		  set({ products: res.data.products }); // ✅ FIXED: Access the array inside response
+		} catch (error) {
+		  toast.error("Failed to load products");
+		}
+	  },
+	  
+	  
 	fetchAllProducts: async () => {
 		set({ loading: true });
 		try {
@@ -33,13 +44,14 @@ export const useProductStore = create((set) => ({
 	fetchProductsByCategory: async (category) => {
 		set({ loading: true });
 		try {
-			const response = await axios.get(`/products/category/${category}`);
-			set({ products: response.data.products, loading: false });
-		} catch (error) {
-			set({ error: "Failed to fetch products", loading: false });
-			toast.error(error.response.data.error || "Failed to fetch products");
+		  const res = await fetch(`/api/products/category/${encodeURIComponent(category)}`);
+		  const data = await res.json();
+		  set({ products: data, loading: false });
+		} catch (err) {
+		  console.error("Failed to fetch category products", err);
+		  set({ products: [], loading: false });
 		}
-	},
+	  },
 	deleteProduct: async (productId) => {
 		set({ loading: true });
 		try {

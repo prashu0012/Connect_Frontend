@@ -7,7 +7,7 @@ import {
   ChevronRight,
   ChevronLeft,
 } from "lucide-react";
-import { useNavigate, Link, NavLink } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import DropdownMenu from "./DropdownMenu1";
 
 const Navbar = () => {
@@ -20,7 +20,7 @@ const Navbar = () => {
         <ChevronLeft className="h-5 w-5" />
         <p className="text-center hover:underline font-medium">
           | For International Orders and Express Shipping Contact Us |
-        </p>
+        </p> 
         <ChevronRight className="h-5 w-5" />
       </div>
 
@@ -31,7 +31,7 @@ const Navbar = () => {
         </button>
         <div className="flex-1 flex justify-center">
           <div className="text-center">
-            <h1 className="text-3xl font-serif text-amber-600">UtsaviMart</h1>
+            <h1 className="text-3xl font-serif text-amber-600">BudhShiv</h1>
             <p className="text-xs tracking-widest uppercase text-amber-600">
               BRING HOME POSITIVITY
             </p>
@@ -42,9 +42,9 @@ const Navbar = () => {
           <button className="p-2 cursor-pointer">
             <User onClick={() => navigate("/signup")} className="h-6 w-6" />
           </button>
-          <NavLink to='/cart' className="p-2">
+          <button className="p-2">
             <ShoppingBag className="h-6 w-6" />
-          </NavLink>
+          </button>
           <button className="flex items-center gap-1 p-2">
             <span className="flex items-center">
               <img
@@ -60,7 +60,7 @@ const Navbar = () => {
       </div>
 
       {/* Main Navigation */}
-      <nav className="border-t border-b border-gray-200 overflow-x-auto relative">
+      <nav className="border-t border-b border-gray-200 relative">
         <ul className="flex whitespace-nowrap text-sm gap-6 py-4 px-4 md:justify-center md:flex-wrap relative">
           <li className="hover:underline">
             <Link to="/" className="block px-2">Home</Link>
@@ -71,32 +71,44 @@ const Navbar = () => {
 
           {/* Dropdown for God Idols */}
           <DropdownMenu title="God Idols" items={[
-            { title: "Buddha", path: "/buddha" },
-            { title: "Shiva", path: "/shiva", subItems: [
-              { title: "Ardhanarishwara", path: "/shiva/ardhanarishwara" },
-              { title: "Nandi", path: "/shiva/nandi" },
-              { title: "Nataraja", path: "/shiva/nataraja" },
+            { title: "Buddha", path: "/god/buddha" },
+            { title: "Shiv", path: "/god/shiva", subItems: [
+              { title: "Shiva", path: "/god/shiva" },
+              { title: "Mukhalingam", path: "/god/shiva/mukhalingam" },
             ]},
-            { title: "Krishna", path: "/krishna", subItems: [
-              { title: "Radha Krishna", path: "/krishna/radha-krishna" }
-            ]},
-            { title: "Hanuman", path: "/hanuman", subItems: [
-              { title: "Panchmukhi Hanuman", path: "/hanuman/panchmukhi" }
-            ]},
+            { title: "Ardhanareshwara", path: "/god/ardhanareshwara" },
+            { title: "Nandi", path: "/god/nandi" },
+            { title: "Nataraja", path: "/god/nataraja" },
+            { title: "Ganesha", path: "/god/ganesh" },
+            { title: "Krishna", path: "/god/krishna" },
+            { title: "Ram", path: "/god/rama" },
+            { title: "Hanuman", path: "/god/hanuman" },
+            { title: "Vishnu", path: "/god/vishnu" },
+            { title: "Garuda", path: "/god/garuda" },
+            { title: "Durga", path: "/god/durga" },
+            { title: "Hanuman", path: "/god/hanuman" },
+            { title: "Tirupati Balaji", path: "/god/tirupati-balaji" },
           ]} />
 
           {/* Dropdown for Brass Decor */}
           <DropdownMenu title="Brass Decor" items={[
-            { title: "Lamps", path: "/brass-decor/lamps" },
-            { title: "Urli", path: "/brass-decor/urli" },
-            { title: "Wall Hangings", path: "/brass-decor/wall-hangings" },
+            { title: "Brass Treasure Boxes", path: "/brass-treasure-boxes" },
+            { title: "Brass Urli", path: "/brass-urli" },
+            { title: "Brass tree Kalpavriksha", path: "/brass-tree-kalpavariksha" },
+            { title: "Brass Showpieces", path: "/brass-showpieces" },
+            { title: "Brass Diyas and Lamps", path: "/lamps" },
+            { title: "Brass Bells", path: "/brass-bells" },
+            { title: "Brass Prabhavalis", path: "/brass-prabhavalis" },
+            { title: "Elephants", path: "/elephants" },
+            { title: "Wall Hangings", path: "/wall-hangings" },
+            { title: "Brass Shankh", path: "/brass-shankh" },
           ]} />
 
           <li className="hover:underline">
             <Link to="/brass-idols" className="block px-2">Intricate Small Superfine Brass Idols</Link>
           </li>
           <li className="hover:underline">
-            <Link to="/copper-idols" className="block px-2">Copper Idols</Link>
+            <Link to="/copper" className="block px-2">Copper Idols</Link>
           </li>
           <li className="hover:underline">
             <Link to="/south-india" className="block px-2">Pure Bronze Solid Idols from South India</Link>
