@@ -11,7 +11,7 @@ function DeityProducts() {
 
   useEffect(() => {
     axios
-      .get(`/products/search?deity=${name}`)
+      .get(`/api/products/search?deity=${name}`)
       .then((res) => {
         setProducts(res.data.products);
         setLoading(false);
