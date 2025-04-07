@@ -31,7 +31,7 @@ const Navbar = () => {
         </button>
         <div className="flex-1 flex justify-center">
           <div className="text-center">
-            <h1 className="text-3xl font-serif text-amber-600">BudhShiv</h1>
+            <h1 className="text-3xl font-serif text-amber-600">UtsaviMart</h1>
             <p className="text-xs tracking-widest uppercase text-amber-600">
               BRING HOME POSITIVITY
             </p>
