@@ -11,6 +11,10 @@ const ProductDetail = () => {
   let { id } = useParams();
   const [productDetails, setProductDetails] = useState();
 
+  useEffect(()=>{
+    console.log("ID..",id);
+  },[id])
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -119,11 +123,11 @@ const ProductDetail = () => {
         <div className="mb-4 space-y-2">
           <div className="flex">
             <span className="w-24 font-medium text-gray-700">Size:</span>
-            <span className="text-gray-600">{productDetails.size}</span>
+            <span className="text-gray-600"></span>
           </div>
           <div className="flex">
             <span className="w-24 font-medium text-gray-700">SKU:</span>
-            <span className="text-gray-600">{productDetails.sku}</span>
+            <span className="text-gray-600"></span>
           </div>
           <div className="flex items-center">
             <span className="w-24 font-medium text-gray-700">
@@ -176,7 +180,7 @@ const ProductDetail = () => {
             flex items-center justify-center space-x-2 hover:bg-green-700"
           >
             <ShoppingCart />
-            <button onClick={() => addToCart()}>Add to Cart</button>
+            <span onClick={() => addToCart()}>Add to Cart</span>
           </button>
           <button
             className="bg-gray-200 p-3 rounded hover:bg-gray-300"

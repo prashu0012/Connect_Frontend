@@ -44,7 +44,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/dashboard" element={<AdminDashboard />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/product/:productId" element={<ProductDetail />} />
+          <Route path="/product/:id" element={<ProductDetail />} />
 
           <Route path="/deity/:name" element={<DeityProducts />} />
           <Route path="/:category" element={<CategoryProducts />} />

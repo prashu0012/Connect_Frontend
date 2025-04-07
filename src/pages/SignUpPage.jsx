@@ -9,7 +9,7 @@ const Signup = () => {
     name: "",
     email: "",
     password: "",
-    confirmpassword: ""
+    confirmpassword: "",
   });
 
   const navigate = useNavigate();
@@ -55,6 +55,14 @@ const Signup = () => {
             className="w-full px-4 py-3 rounded-md bg-gray-800 text-white focus:ring-2 focus:ring-blue-500 border-none"
             required
           />
+          {/* <input
+            type="password"
+            placeholder="Confirm Password"
+            value={formData.confirmpassword}
+            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+            className="w-full px-4 py-3 rounded-md bg-gray-800 text-white focus:ring-2 focus:ring-blue-500 border-none"
+            required
+          /> */}
           <button
             type="submit"
             className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-3 rounded-md text-lg font-semibold hover:opacity-90 transition duration-300"
