@@ -20,7 +20,7 @@ const Navbar = () => {
         <ChevronLeft className="h-5 w-5" />
         <p className="text-center hover:underline font-medium">
           | For International Orders and Express Shipping Contact Us |
-        </p> 
+        </p>
         <ChevronRight className="h-5 w-5" />
       </div>
 
@@ -72,10 +72,12 @@ const Navbar = () => {
           {/* Dropdown for God Idols */}
           <DropdownMenu title="God Idols" items={[
             { title: "Buddha", path: "/god/buddha" },
-            { title: "Shiv", path: "/god/shiva", subItems: [
-              { title: "Shiva", path: "/god/shiva" },
-              { title: "Mukhalingam", path: "/god/shiva/mukhalingam" },
-            ]},
+            {
+              title: "Shiv", path: "/god/shiva", subItems: [
+                { title: "Shiva", path: "/god/shiva" },
+                { title: "Mukhalingam", path: "/god/shiva/mukhalingam" },
+              ]
+            },
             { title: "Ardhanareshwara", path: "/god/ardhanareshwara" },
             { title: "Nandi", path: "/god/nandi" },
             { title: "Nataraja", path: "/god/nataraja" },

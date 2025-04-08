@@ -6,7 +6,7 @@ import axios from "../lib/axios";
 export const useProductStore = create((set) => ({
 	products: [],
 	loading: false,
-    
+
 	setProducts: (products) => set({ products }),
 	createProduct: async (productData) => {
 		set({ loading: true });
@@ -23,14 +23,14 @@ export const useProductStore = create((set) => ({
 	},
 	fetchProductsByName: async (name) => {
 		try {
-		  const res = await axios.get(`/api/products/search?name=${encodeURIComponent(name)}`);
-		  set({ products: res.data.products }); // ✅ FIXED: Access the array inside response
+			const res = await axios.get(`/api/products/search?name=${encodeURIComponent(name)}`);
+			set({ products: res.data.products }); // ✅ FIXED: Access the array inside response
 		} catch (error) {
-		  toast.error("Failed to load products");
+			toast.error("Failed to load products");
 		}
-	  },
-	  
-	  
+	},
+
+
 	fetchAllProducts: async () => {
 		set({ loading: true });
 		try {
@@ -44,14 +44,14 @@ export const useProductStore = create((set) => ({
 	fetchProductsByCategory: async (category) => {
 		set({ loading: true });
 		try {
-		  const res = await fetch(`/api/products/category/${encodeURIComponent(category)}`);
-		  const data = await res.json();
-		  set({ products: data, loading: false });
+			const res = await fetch(`/api/products/category/${encodeURIComponent(category)}`);
+			const data = await res.json();
+			set({ products: data, loading: false });
 		} catch (err) {
-		  console.error("Failed to fetch category products", err);
-		  set({ products: [], loading: false });
+			console.error("Failed to fetch category products", err);
+			set({ products: [], loading: false });
 		}
-	  },
+	},
 	deleteProduct: async (productId) => {
 		set({ loading: true });
 		try {

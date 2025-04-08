@@ -22,9 +22,9 @@ const GodProductsPage = () => {
   return (
     
     <div className="p-4 mt-70">
-      <h1>God Name: {godName}</h1>
+      {/* <h1>God Name: {godName}</h1> */}
 
-      <h2 className="text-2xl font-bold mb-4 text-center">{godName} Idols</h2>
+      <h2 className="text-2xl font-bold mb-4 text-center capitalize">{godName} Idols</h2>
       <div className="flex flex-wrap justify-center gap-6">
         {products.length > 0 ? (
           products.map((product) => <ProductCard key={product._id} product={product} />)
