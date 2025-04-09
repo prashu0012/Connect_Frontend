@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { useNavigate, Link } from "react-router-dom";
 import DropdownMenu from "./DropdownMenu1";
+import AnouncementBar from "./AnounsementBar";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -16,13 +17,7 @@ const Navbar = () => {
   return (
     <div className="w-full fixed top-0 left-0 bg-white z-50 shadow-md">
       {/* Announcement Bar */}
-      <div className="bg-gray-100 py-4 flex items-center justify-between px-4">
-        <ChevronLeft className="h-5 w-5" />
-        <p className="text-center hover:underline font-medium">
-          | For International Orders and Express Shipping Contact Us |
-        </p>
-        <ChevronRight className="h-5 w-5" />
-      </div>
+      <AnouncementBar />
 
       {/* Logo and Icons */}
       <div className="flex items-center justify-between py-6 px-4">
@@ -31,7 +26,7 @@ const Navbar = () => {
         </button>
         <div className="flex-1 flex justify-center">
           <div className="text-center">
-            <h1 className="text-3xl font-serif text-amber-600">UtsaviMart</h1>
+            <h1 className="text-3xl font-serif text-amber-600">BudhShiv</h1>
             <p className="text-xs tracking-widest uppercase text-amber-600">
               BRING HOME POSITIVITY
             </p>
@@ -42,7 +37,7 @@ const Navbar = () => {
           <button className="p-2 cursor-pointer">
             <User onClick={() => navigate("/signup")} className="h-6 w-6" />
           </button>
-          <button className="p-2" onClick={() => navigate("/cart")}>
+          <button className="p-2">
             <ShoppingBag className="h-6 w-6" />
           </button>
           <button className="flex items-center gap-1 p-2">
@@ -72,12 +67,10 @@ const Navbar = () => {
           {/* Dropdown for God Idols */}
           <DropdownMenu title="God Idols" items={[
             { title: "Buddha", path: "/god/buddha" },
-            {
-              title: "Shiv", path: "/god/shiva", subItems: [
-                { title: "Shiva", path: "/god/shiva" },
-                { title: "Mukhalingam", path: "/god/shiva/mukhalingam" },
-              ]
-            },
+            { title: "Shiv", path: "/god/shiva", subItems: [
+              { title: "Shiva", path: "/god/shiva" },
+              { title: "Mukhalingam", path: "/god/shiva/mukhalingam" },
+            ]},
             { title: "Ardhanareshwara", path: "/god/ardhanareshwara" },
             { title: "Nandi", path: "/god/nandi" },
             { title: "Nataraja", path: "/god/nataraja" },
@@ -94,7 +87,7 @@ const Navbar = () => {
 
           {/* Dropdown for Brass Decor */}
           <DropdownMenu title="Brass Decor" items={[
-            { title: "Brass Treasure Boxes", path: "/brass-treasure-boxes" },
+            { title: "Brass Decor", path: "/brass-decor" },
             { title: "Brass Urli", path: "/brass-urli" },
             { title: "Brass tree Kalpavriksha", path: "/brass-tree-kalpavariksha" },
             { title: "Brass Showpieces", path: "/brass-showpieces" },
@@ -107,19 +100,19 @@ const Navbar = () => {
           ]} />
 
           <li className="hover:underline">
-            <Link to="/brass-idols" className="block px-2">Intricate Small Superfine Brass Idols</Link>
+            <Link to="/brass" className="block px-2">Intricate Small Superfine Brass Idols</Link>
           </li>
           <li className="hover:underline">
             <Link to="/copper" className="block px-2">Copper Idols</Link>
           </li>
           <li className="hover:underline">
-            <Link to="/south-india" className="block px-2">Pure Bronze Solid Idols from South India</Link>
+            <Link to="/bronze" className="block px-2">Pure Bronze Solid Idols from South India</Link>
           </li>
           <li className="hover:underline">
-            <Link to="/wooden-wall-hangings" className="block px-2">Wooden Wall Hangings with Brass Artifacts</Link>
+            <Link to="/wooden" className="block px-2">Wooden Wall Hangings with Brass Artifacts</Link>
           </li>
           <li className="hover:underline">
-            <Link to="/vintage-statues" className="block px-2">Vintage Statues Sculptures</Link>
+            <Link to="/vintage" className="block px-2">Vintage Statues Sculptures</Link>
           </li>
           <li className="hover:underline">
             <Link to="/indonesian-artifacts" className="block px-2">Timeless Indonesian Style Bronze Artifacts</Link>
@@ -133,9 +126,9 @@ const Navbar = () => {
           <li className="hover:underline">
             <Link to="/contact" className="block px-2">Contact</Link>
           </li>
-          <li className="hover:underline">
+          {/* <li className="hover:underline">
             <Link to="/visit-store" className="block px-2">Visit Our Store</Link>
-          </li>
+          </li> */}
         </ul>
       </nav>
     </div>
