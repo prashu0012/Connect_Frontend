@@ -126,7 +126,7 @@ const Cart = () => {
 
           <button
             className="bg-black text-white py-3 px-8 font-medium hover:bg-gray-800 transition-colors duration-300"
-          // onClick={() => navigate('/checkout')}
+          onClick={() => navigate('/checkout')}
           >
             Proceed to Checkout
           </button>
