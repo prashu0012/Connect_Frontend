@@ -25,7 +25,7 @@ import Contact from "./pages/Contact";
 import DeityProducts from "./pages/DeityProducts";
 import OurStory from "./pages/ourStory";
 import GodProductsPage from "./pages/GodProducts";
-
+import CheckoutPage from "./pages/CheckoutPage";
 import CategoryProducts from "./pages/CategoryProducts";
 
 
@@ -60,6 +60,7 @@ function App() {
            {/* <Route path="/blog" element={<Blog />} />
            <Route path="/blog/:id" element={<BlogPost />} /> */}
            <Route path="/our-story" element={<OurStory />} />
+          <Route path="/checkout" element={<CheckoutPage /> />
         
           <Route path="*" element={<h1 className="text-center mt-10">404 Not Found</h1>} />
         </Routes>
