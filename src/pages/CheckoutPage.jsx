@@ -11,8 +11,9 @@ export default function CheckoutPage() {
   const [pickupPhoneNumber, setPickupPhoneNumber] = useState('');
   const [cartItem, setCartItem] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
-  const [toggle, setToggle] = useState(false); // You had this dependency in useEffect
-
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  
   // Store location details
   const storeLocation = {
     name: "BudhShiv Lajpat Nagar I Lajpat Nagar",
@@ -24,40 +25,58 @@ export default function CheckoutPage() {
 
   // fetch cart
   const fetchCartItem = async () => {
+    setLoading(true);
     try {
-      const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/checkout`, { withCredentials: true });
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/checkout`, { 
+        withCredentials: true 
+      });
+      
+      console.log("API Response:", response.data); // Debug log
+      
       if (response.status === 200) {
         setCartItem(response.data);
+        setTotalAmount(calculateTotalAmount(response.data));
       }
     } catch (error) {
-      console.log("Error: ", error);
+      console.error("Error fetching cart:", error);
+      setError("Failed to load cart items. Please try again.");
+    } finally {
+      setLoading(false);
     }
+  };
+
+  // calculate total amount
+  function calculateTotalAmount(items) {
+    console.log("Calculating total for:", items); // Debug log
+    if (!items || !Array.isArray(items) || items.length === 0) {
+      return 0;
+    }
+    
+    return items.reduce((total, item) => {
+      if (!item || !item.product) {
+        console.warn("Invalid cart item:", item);
+        return total;
+      }
+      return total + (item.product.price * item.quantity);
+    }, 0);
   }
 
   useEffect(() => {
     fetchCartItem();
   }, []);
 
-  useEffect(() => {
-    fetchCartItem();
-  }, [toggle]);
-
-  useEffect(() => {
-    setTotalAmount(calculateTotalAmount(cartItem));
-  }, [cartItem]);
-
-  // calculate total amount
-  function calculateTotalAmount(cartItem) {
-    return cartItem.reduce((total, item) => {
-      return total + (item.product.price * item.quantity);
-    }, 0);
-  }
-
   const handlePlaceOrder = () => {
     // Order processing logic would go here
-    console.log('Order placed!');
+    console.log('Order placed with items:', cartItem);
+    console.log('Total amount:', totalAmount);
   };
-
+  
+  // For debugging
+  useEffect(() => {
+    console.log("Cart updated:", cartItem);
+    console.log("Total amount:", totalAmount);
+  }, [cartItem, totalAmount]);
+  
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 flex flex-col md:flex-row gap-8">
       {/* Left side - Forms */}
@@ -68,19 +87,19 @@ export default function CheckoutPage() {
             <h2 className="text-2xl font-bold">Contact</h2>
             <a href="#" className="text-blue-600 hover:underline">Log in</a>
           </div>
-
+          
           <div className="mb-4">
-            <input
-              type="email"
-              placeholder="Email"
+            <input 
+              type="email" 
+              placeholder="Email" 
               className="w-full p-3 border border-gray-300 rounded"
             />
           </div>
-
+          
           <div className="flex items-center mb-6">
-            <input
-              type="checkbox"
-              id="newsletter"
+            <input 
+              type="checkbox" 
+              id="newsletter" 
               checked={emailNewsOffer}
               onChange={() => setEmailNewsOffer(!emailNewsOffer)}
               className="mr-2 h-4 w-4"
@@ -92,15 +111,15 @@ export default function CheckoutPage() {
         {/* Delivery Section with Radio Button Options */}
         <div className="mb-8">
           <h2 className="text-2xl font-bold mb-4">Delivery</h2>
-
+          
           {/* Always show both radio buttons */}
           <div className="mb-4">
             <div className={`border rounded mb-2 p-4 flex justify-between items-center ${deliveryMethod === 'ship' ? 'bg-blue-50 border-blue-500' : 'border-gray-300'}`}>
               <div className="flex items-center">
-                <input
-                  type="radio"
-                  id="ship"
-                  name="delivery"
+                <input 
+                  type="radio" 
+                  id="ship" 
+                  name="delivery" 
                   value="ship"
                   checked={deliveryMethod === 'ship'}
                   onChange={() => setDeliveryMethod('ship')}
@@ -114,13 +133,13 @@ export default function CheckoutPage() {
                 </svg>
               )}
             </div>
-
+            
             <div className={`border rounded p-4 flex justify-between items-center ${deliveryMethod === 'pickup' ? 'bg-blue-50 border-blue-500' : 'border-gray-300'}`}>
               <div className="flex items-center">
-                <input
-                  type="radio"
-                  id="pickup"
-                  name="delivery"
+                <input 
+                  type="radio" 
+                  id="pickup" 
+                  name="delivery" 
                   value="pickup"
                   checked={deliveryMethod === 'pickup'}
                   onChange={() => setDeliveryMethod('pickup')}
@@ -153,29 +172,29 @@ export default function CheckoutPage() {
                 </div>
               </div>
             </div>
-
+            
             {/* Contact information for pickup */}
             <div className="mb-6">
               <h3 className="font-medium mb-2">Contact Information</h3>
               <div className="mb-4">
-                <input
-                  type="text"
-                  placeholder="Full name"
+                <input 
+                  type="text" 
+                  placeholder="Full name" 
                   className="w-full p-3 border border-gray-300 rounded mb-4"
                 />
-                <input
-                  type="tel"
-                  placeholder="Phone number"
+                <input 
+                  type="tel" 
+                  placeholder="Phone number" 
                   value={pickupPhoneNumber}
                   onChange={(e) => setPickupPhoneNumber(e.target.value)}
                   className="w-full p-3 border border-gray-300 rounded"
                 />
               </div>
-
+              
               <div className="flex items-center">
-                <input
-                  type="checkbox"
-                  id="textNews"
+                <input 
+                  type="checkbox" 
+                  id="textNews" 
                   checked={textNewsOffer}
                   onChange={() => setTextNewsOffer(!textNewsOffer)}
                   className="mr-2 h-4 w-4"
@@ -192,7 +211,7 @@ export default function CheckoutPage() {
             <h3 className="font-medium mb-4">Shipping Address</h3>
             <div className="mb-4">
               <div className="relative">
-                <select
+                <select 
                   value={country}
                   onChange={(e) => setCountry(e.target.value)}
                   className="w-full p-3 border border-gray-300 rounded appearance-none"
@@ -208,52 +227,52 @@ export default function CheckoutPage() {
                 </div>
               </div>
             </div>
-
+            
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-              <input
-                type="text"
-                placeholder="First name"
+              <input 
+                type="text" 
+                placeholder="First name" 
                 className="p-3 border border-gray-300 rounded"
               />
-              <input
-                type="text"
-                placeholder="Last name"
+              <input 
+                type="text" 
+                placeholder="Last name" 
                 className="p-3 border border-gray-300 rounded"
               />
             </div>
-
+            
             <div className="mb-4">
-              <input
-                type="text"
-                placeholder="Company (optional)"
+              <input 
+                type="text" 
+                placeholder="Company (optional)" 
                 className="w-full p-3 border border-gray-300 rounded"
               />
             </div>
-
+            
             <div className="mb-4">
-              <input
-                type="text"
-                placeholder="Address"
+              <input 
+                type="text" 
+                placeholder="Address" 
                 className="w-full p-3 border border-gray-300 rounded"
               />
             </div>
-
+            
             <div className="mb-4">
-              <input
-                type="text"
-                placeholder="Apartment, suite, etc. (optional)"
+              <input 
+                type="text" 
+                placeholder="Apartment, suite, etc. (optional)" 
                 className="w-full p-3 border border-gray-300 rounded"
               />
             </div>
-
+            
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-              <input
-                type="text"
-                placeholder="City"
+              <input 
+                type="text" 
+                placeholder="City" 
                 className="p-3 border border-gray-300 rounded"
               />
               <div className="relative">
-                <select
+                <select 
                   value={state}
                   onChange={(e) => setState(e.target.value)}
                   className="w-full p-3 border border-gray-300 rounded appearance-none"
@@ -268,18 +287,18 @@ export default function CheckoutPage() {
                   </svg>
                 </div>
               </div>
-              <input
-                type="text"
-                placeholder="PIN code"
+              <input 
+                type="text" 
+                placeholder="PIN code" 
                 className="p-3 border border-gray-300 rounded"
               />
             </div>
-
+            
             {/* Phone Number Field */}
             <div className="mb-4">
-              <input
-                type="tel"
-                placeholder="Phone number"
+              <input 
+                type="tel" 
+                placeholder="Phone number" 
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
                 className="w-full p-3 border border-gray-300 rounded"
@@ -292,15 +311,42 @@ export default function CheckoutPage() {
       {/* Right side - Cart Summary */}
       <div className="md:w-2/5 bg-gray-50 p-6 rounded-lg">
         <div>
-          {/* Dynamic Cart Items */}
-          {cartItem.length > 0 ? (
+          {/* Loading State */}
+          {loading && (
+            <div className="text-center py-4">
+              <p>Loading your cart...</p>
+            </div>
+          )}
+          
+          {/* Error State */}
+          {error && !loading && (
+            <div className="text-center py-4 text-red-500">
+              <p>{error}</p>
+              <button 
+                onClick={fetchCartItem} 
+                className="mt-2 text-blue-500 underline"
+              >
+                Try again
+              </button>
+            </div>
+          )}
+          
+          {/* Empty Cart State */}
+          {!loading && !error && cartItem.length === 0 && (
+            <div className="text-center py-4">
+              <p>Your cart is empty</p>
+            </div>
+          )}
+          
+          {/* Cart Items */}
+          {!loading && !error && cartItem.length > 0 && (
             <>
               {cartItem.map((item, index) => (
                 <div key={index} className="flex items-center mb-6">
                   <div className="h-16 w-16 bg-gray-200 rounded mr-4 relative">
-                    <img
-                      src={item.product.imageUrl || "/api/placeholder/64/64"}
-                      alt={item.product.name}
+                    <img 
+                      src={item.product.imageUrl || "/api/placeholder/64/64"} 
+                      alt={item.product.name} 
                       className="h-full w-full object-cover rounded"
                     />
                     <span className="absolute -top-2 -right-2 bg-gray-500 text-white rounded-full h-6 w-6 flex items-center justify-center text-xs">
@@ -314,12 +360,8 @@ export default function CheckoutPage() {
                 </div>
               ))}
             </>
-          ) : (
-            <div className="text-center py-4">
-              <p>Your cart is empty</p>
-            </div>
           )}
-
+          
           <div className="border-t border-gray-200 pt-4">
             <div className="flex justify-between mb-2">
               <span>Subtotal</span>
@@ -344,14 +386,14 @@ export default function CheckoutPage() {
                   <span className="text-lg font-medium">₹{totalAmount.toFixed(2)}</span>
                 </div>
               </div>
-
+              
               {/* Place Order Button */}
-              <button
+              <button 
                 onClick={handlePlaceOrder}
                 className="w-full bg-black hover:bg-blue-700 text-white py-3 px-6 rounded font-medium transition duration-200"
-                disabled={cartItem.length === 0}
+                disabled={loading || cartItem.length === 0}
               >
-                Place Order
+                {loading ? 'Loading...' : 'Place Order'}
               </button>
             </div>
           </div>
